@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+*.py linguist-vendored eol=lf
+*.cypher linguist-vendored eol=lf
+*.java linguist-vendored eol=lf
+CHANGELOG.md export-ignore

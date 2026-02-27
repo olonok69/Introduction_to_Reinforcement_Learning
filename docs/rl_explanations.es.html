@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>rl_explanations.es.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="explicaci%C3%B3n-de-algoritmos-de-rl-con-referencias-al-c%C3%B3digo">Explicación de Algoritmos de RL (con referencias al código)</h1>
+<p>Este documento explica cómo funcionan las implementaciones de los demos:</p>
+<ul>
+<li>Q-learning tabular en FrozenLake</li>
+<li>REINFORCE (Policy Gradient) en CartPole</li>
+<li>PPO en CartPole (Stable-Baselines3)</li>
+</ul>
+<p>Todas las explicaciones apuntan directamente al código.</p>
+<p>Nota: los números de línea son aproximados y pueden cambiar cuando evolucionan los scripts; toma como referencia principal los nombres de funciones y bloques de código.</p>
+<hr>
+<h2 id="1-q-learning">1) Q-learning</h2>
+<h3 id="11-qu%C3%A9-es-q-learning">1.1 Qué es Q-learning</h3>
+<p>Q-learning es un algoritmo de reinforcement learning <strong>model-free y value-based</strong>. En lugar de aprender una policy directamente, aprende una función $Q(s,a)$ que estima qué tan buena es cada acción en cada estado.</p>
+<p>Idea central:</p>
+<ul>
+<li>Aprender action values desde la interacción con el environment.</li>
+<li>Derivar el comportamiento eligiendo la acción con mayor Q-value.</li>
+</ul>
+<h3 id="12-c%C3%B3mo-funciona-q-learning-conceptualmente">1.2 Cómo funciona Q-learning (conceptualmente)</h3>
+<p>En cada transición $(s,a,r,s')$, el algoritmo actualiza la estimación de $Q(s,a)$ usando un Bellman target:</p>
+<p>$$
+Q(s,a) \leftarrow Q(s,a) + \alpha \left[r + \gamma \max_{a'} Q(s',a') - Q(s,a)\right]
+$$</p>
+<p>Loop de alto nivel:</p>
+<ol>
+<li>Seleccionar acción (normalmente con exploration <code>epsilon</code>-greedy).</li>
+<li>Observar siguiente estado y reward.</li>
+<li>Actualizar el Q-value actual hacia el TD target.</li>
+<li>Repetir por muchos episodios, reduciendo exploration con el tiempo.</li>
+</ol>
+<h3 id="13-c%C3%B3mo-funciona-q-learning-en-este-proyecto-mapeo-al-c%C3%B3digo">1.3 Cómo funciona Q-learning en este proyecto (mapeo al código)</h3>
+<p>Archivo principal: <code>demos/q_learning_frozenlake.py</code></p>
+<h3 id="131-configuraci%C3%B3n-del-problema">1.3.1 Configuración del problema</h3>
+<ul>
+<li>La creación del environment y sus dimensiones está al inicio de <code>train(...)</code>.</li>
+<li>El agente usa una <strong>Q-table</strong> inicializada en cero en ese mismo bloque de setup.</li>
+</ul>
+<p>Interpretación:</p>
+<ul>
+<li><code>q_table[s, a]</code> guarda la estimación actual del retorno descontado esperado al tomar la acción <code>a</code> en el estado <code>s</code> y luego seguir la policy greedy.</li>
+</ul>
+<h3 id="132-selecci%C3%B3n-de-acci%C3%B3n-epsilon-greedy">1.3.2 Selección de acción (<code>epsilon</code>-greedy)</h3>
+<p>Función: <code>epsilon_greedy_action(...)</code></p>
+<ul>
+<li>Con probabilidad <code>epsilon</code>, elige una acción aleatoria (exploration).</li>
+<li>En caso contrario, elige <code>argmax_a Q(s,a)</code> (exploitation).</li>
+</ul>
+<p>Por qué importa:</p>
+<ul>
+<li>Al inicio se necesita exploration porque casi no hay conocimiento en la Q-table.</li>
+<li>Más adelante conviene exploitation, y eso se logra con epsilon decay.</li>
+</ul>
+<h3 id="133-loop-de-interacci%C3%B3n-por-episodio">1.3.3 Loop de interacción por episodio</h3>
+<p>Loop principal: loops de episodio/step dentro de <code>train(...)</code></p>
+<p>En cada step:</p>
+<ol>
+<li>Seleccionar acción con <code>epsilon_greedy_action(...)</code>.</li>
+<li>Hacer <code>env.step</code> para obtener <code>(next_state, reward, terminated, truncated)</code>.</li>
+<li>Marcar estado terminal con <code>done = terminated or truncated</code>.</li>
+</ol>
+<h3 id="134-bellman-update-regla-de-aprendizaje">1.3.4 Bellman update (regla de aprendizaje)</h3>
+<p>Bloque de update: líneas de TD target/error dentro de <code>train(...)</code></p>
+<p>La implementación corresponde a:</p>
+<p>$$
+Q(s,a) \leftarrow Q(s,a) + \alpha \left[r + \gamma \max_{a'} Q(s',a') - Q(s,a)\right]
+$$</p>
+<p>Mapa con el código:</p>
+<ul>
+<li><code>best_next = np.max(q_table[next_state])</code> es $\max_{a'}Q(s',a')$.</li>
+<li><code>td_target = reward + gamma * best_next * (1-done)</code> es el target.</li>
+<li><code>td_error = td_target - q_table[state, action]</code>.</li>
+<li><code>q_table[state, action] += alpha * td_error</code>.</li>
+</ul>
+<p>Manejo de terminal state:</p>
+<ul>
+<li>Multiplicar por <code>(1.0 - float(done))</code> evita bootstrapping en transiciones terminales.</li>
+</ul>
+<h3 id="135-decay-de-exploration">1.3.5 Decay de exploration</h3>
+<p>Línea de actualización de epsilon dentro de <code>train(...)</code>:</p>
+<p>$$
+\epsilon \leftarrow \max(\epsilon_{min}, \epsilon \cdot \epsilon_{decay})
+$$</p>
+<p>Esto mueve gradualmente el comportamiento de exploration a exploitation.</p>
+<h3 id="136-monitoreo-y-evaluaci%C3%B3n">1.3.6 Monitoreo y evaluación</h3>
+<ul>
+<li>Log de entrenamiento cada <code>log_every</code> episodios usando <code>avg100</code>.</li>
+<li>Evaluación final en <code>evaluate_policy(...)</code>:
+<ul>
+<li>Usa policy puramente greedy (<code>argmax</code>).</li>
+<li>Reporta success rate sobre muchos episodios.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="2-reinforce">2) REINFORCE</h2>
+<h3 id="21-qu%C3%A9-es-reinforce">2.1 Qué es REINFORCE</h3>
+<p>REINFORCE es un algoritmo de <strong>policy gradient</strong>. Optimiza directamente una policy parametrizada $\pi_\theta(a|s)$, en lugar de aprender una Q-table.</p>
+<p>Idea central:</p>
+<ul>
+<li>Muestrear trayectorias con la policy actual.</li>
+<li>Aumentar probabilidad de acciones que produjeron alto return.</li>
+<li>Reducir probabilidad de acciones que produjeron bajo return.</li>
+</ul>
+<h3 id="22-c%C3%B3mo-funciona-reinforce-conceptualmente">2.2 Cómo funciona REINFORCE (conceptualmente)</h3>
+<p>Para un episodio, calcula el return $G_t$ en cada step y actualiza parámetros por gradient ascent del retorno esperado; normalmente se implementa minimizando:</p>
+<p>$$
+\mathcal{L}(\theta) = -\sum_t \log \pi_\theta(a_t|s_t) G_t
+$$</p>
+<p>Loop de alto nivel:</p>
+<ol>
+<li>Ejecutar un episodio con la policy estocástica actual.</li>
+<li>Calcular discounted returns.</li>
+<li>Construir la policy-gradient loss con log-probabilities y returns.</li>
+<li>Hacer backpropagation y actualizar parámetros.</li>
+</ol>
+<h3 id="23-c%C3%B3mo-funciona-reinforce-en-este-proyecto-mapeo-al-c%C3%B3digo">2.3 Cómo funciona REINFORCE en este proyecto (mapeo al código)</h3>
+<p>Archivo principal: <code>demos/reinforce_cartpole.py</code></p>
+<h3 id="231-policy-network">2.3.1 Policy network</h3>
+<p>Clase: <code>PolicyNetwork</code></p>
+<ul>
+<li>Entrada: vector de observación (<code>obs_size</code>).</li>
+<li>Salida: probabilidades de acción con <code>softmax</code>.</li>
+</ul>
+<p>Interpretación:</p>
+<ul>
+<li>El modelo representa una stochastic policy $\pi_\theta(a|s)$.</li>
+</ul>
+<h3 id="232-c%C3%A1lculo-de-returns-por-trayectoria">2.3.2 Cálculo de returns por trayectoria</h3>
+<p>Función: <code>discounted_returns(...)</code></p>
+<p>Para cada time step <code>t</code>, el return es:</p>
+<p>$$
+G_t = \sum_{k=0}^{T-t-1} \gamma^k r_{t+k}
+$$</p>
+<p>Detalles de implementación:</p>
+<ul>
+<li>Calcula returns hacia atrás.</li>
+<li>Normaliza returns para reducir varianza del gradiente y estabilizar training.</li>
+</ul>
+<h3 id="233-recolecci%C3%B3n-de-datos-on-policy">2.3.3 Recolección de datos (on-policy)</h3>
+<p>Loop de episodio: loop de interacción dentro de <code>train(...)</code></p>
+<p>En cada step:</p>
+<ol>
+<li>Convertir observación a tensor.</li>
+<li>Calcular probabilidades de acción con la policy actual.</li>
+<li>Hacer sample de acción con <code>Categorical(probs)</code>.</li>
+<li>Guardar <code>log_prob(action)</code>.</li>
+<li>Ejecutar acción y guardar reward.</li>
+</ol>
+<p>Por qué el sampling es importante:</p>
+<ul>
+<li>REINFORCE necesita samples de la misma policy que se está optimizando (on-policy Monte Carlo).</li>
+</ul>
+<h3 id="234-policy-loss-y-update">2.3.4 Policy loss y update</h3>
+<p>Bloque de loss: acumulación de policy-loss dentro de <code>train(...)</code></p>
+<p>Este código implementa:</p>
+<p>$$
+\mathcal{L}(\theta) = -\sum_t \log \pi_\theta(a_t|s_t) G_t
+$$</p>
+<p>Interpretación:</p>
+<ul>
+<li>Si $G_t$ es alto, gradient ascent aumenta la probabilidad de la acción muestreada.</li>
+<li>Si $G_t$ es bajo, el update tiende a reducir esa probabilidad.</li>
+</ul>
+<p>Paso de optimización:</p>
+<ul>
+<li><code>optimizer.zero_grad()</code></li>
+<li><code>loss.backward()</code></li>
+<li><code>optimizer.step()</code></li>
+</ul>
+<h3 id="235-se%C3%B1al-de-convergencia">2.3.5 Señal de convergencia</h3>
+<ul>
+<li>Episode reward y moving average (<code>avg100</code>) dentro de <code>train(...)</code>.</li>
+<li>Condición de “solved” con <code>avg100 &gt;= solve_score</code> luego de al menos 100 episodios.</li>
+</ul>
+<hr>
+<h2 id="3-q-learning-vs-reinforce-resumen-para-clase">3) Q-learning vs REINFORCE (resumen para clase)</h2>
+<h3 id="qu%C3%A9-se-aprende">Qué se aprende</h3>
+<ul>
+<li>Q-learning: aprende <strong>state-action values</strong> <code>Q(s,a)</code> y deriva la policy con argmax.</li>
+<li>REINFORCE: aprende la <strong>policy directamente</strong> <code>\pi_\theta(a|s)</code>.</li>
+</ul>
+<h3 id="estilo-de-update">Estilo de update</h3>
+<ul>
+<li>Q-learning: temporal-difference bootstrapping (usa <code>max Q(s',a')</code>).</li>
+<li>REINFORCE: Monte Carlo policy gradient (usa returns de episodio completo).</li>
+</ul>
+<h3 id="d%C3%B3nde-encaja-mejor">Dónde encaja mejor</h3>
+<ul>
+<li>Q-learning (tabular): state spaces pequeños/discretos.</li>
+<li>REINFORCE (neural policy): observaciones continuas o de mayor dimensión.</li>
+</ul>
+<hr>
+<h2 id="4-hyperparameters-en-estos-scripts">4) Hyperparameters en estos scripts</h2>
+<h3 id="q-learning-parseargs">Q-learning (<code>parse_args(...)</code>)</h3>
+<ul>
+<li><code>alpha</code>: learning rate.</li>
+<li><code>gamma</code>: discount factor.</li>
+<li><code>epsilon-start</code>, <code>epsilon-min</code>, <code>epsilon-decay</code>: schedule de exploration.</li>
+<li><code>episodes</code>, <code>max-steps</code>: presupuesto de training.</li>
+</ul>
+<h3 id="reinforce-parseargs">REINFORCE (<code>parse_args(...)</code>)</h3>
+<ul>
+<li><code>lr</code>: learning rate del optimizer.</li>
+<li><code>gamma</code>: discount factor.</li>
+<li><code>episodes</code>: máximo de episodios.</li>
+<li><code>solve-score</code>: umbral para early stop.</li>
+</ul>
+<hr>
+<h2 id="5-tips-pr%C3%A1cticos-para-demos">5) Tips prácticos para demos</h2>
+<ul>
+<li>Si Q-learning se ve plano al inicio, aumenta episodios y/o desacelera <code>epsilon-decay</code>.</li>
+<li>Para clase, empieza con FrozenLake determinista (<code>--slippery</code> desactivado).</li>
+<li>Para REINFORCE, mantén la normalización de returns y usa suficientes episodios.</li>
+</ul>
+<hr>
+<h2 id="6-verificaci%C3%B3n-post-training-workflow-actualizado">6) Verificación post-training (workflow actualizado)</h2>
+<p>Los tres demos ahora incluyen modos de verificación post-training:</p>
+<h3 id="61-render-en-tiempo-real-human">6.1 Render en tiempo real (<code>human</code>)</h3>
+<ul>
+<li>Q-learning: <code>--render-eval --render-episodes N</code></li>
+<li>REINFORCE: <code>--render-eval --render-episodes N</code></li>
+<li>PPO: <code>--render-eval --render-episodes N</code></li>
+</ul>
+<p>Esto abre una ventana interactiva para verificar visualmente si la policy aprendida resuelve la tarea.</p>
+<h3 id="62-grabaci%C3%B3n-de-video-mp4-para-slides">6.2 Grabación de video (<code>mp4</code> para slides)</h3>
+<ul>
+<li>Q-learning: <code>--record-video --video-episodes N --video-dir &lt;path&gt;</code></li>
+<li>REINFORCE: <code>--record-video --video-episodes N --video-dir &lt;path&gt;</code></li>
+<li>PPO: <code>--record-video --video-episodes N --video-dir &lt;path&gt;</code></li>
+</ul>
+<p>Esto graba episodios de evaluación con Gymnasium <code>RecordVideo</code> en:</p>
+<ul>
+<li><code>videos/q_learning_frozenlake</code> (default)</li>
+<li><code>videos/reinforce_cartpole</code> (default)</li>
+<li><code>videos/ppo_cartpole</code> (default)</li>
+</ul>
+<h3 id="63-modo-combinado-un-solo-comando">6.3 Modo combinado (un solo comando)</h3>
+<ul>
+<li>Q-learning: <code>--record-and-render</code></li>
+<li>REINFORCE: <code>--record-and-render</code></li>
+<li>PPO: <code>--record-and-render</code></li>
+</ul>
+<p>Esto activa ambos modos de visualización en una sola ejecución.</p>
+<h3 id="64-nota-de-dependencias">6.4 Nota de dependencias</h3>
+<ul>
+<li>La grabación de video requiere <code>moviepy</code> (ya agregado a <code>requirements.txt</code>).</li>
+<li>Si falta, los scripts muestran una ayuda clara: <code>uv pip install moviepy</code>.</li>
+</ul>
+<hr>
+<h2 id="7-ppo">7) PPO</h2>
+<h3 id="71-qu%C3%A9-es-ppo">7.1 Qué es PPO</h3>
+<p>PPO (Proximal Policy Optimization) es un algoritmo moderno de <strong>policy optimization</strong> diseñado para mejorar estabilidad y sample efficiency frente a policy gradient más básicos.</p>
+<p>Idea central:</p>
+<ul>
+<li>Optimizar un surrogate objective que desincentiva updates demasiado grandes.</li>
+<li>Reusar datos de trayectorias por varios epochs de optimización.</li>
+<li>Balancear desempeño y estabilidad de training.</li>
+</ul>
+<p>En este proyecto, PPO viene de <code>stable-baselines3</code>.</p>
+<h3 id="72-c%C3%B3mo-funciona-ppo-conceptualmente">7.2 Cómo funciona PPO (conceptualmente)</h3>
+<p>PPO recolecta rollouts, calcula estimaciones de advantage y actualiza policy/value networks con una objective clipping para evitar cambios bruscos de policy en un solo paso.</p>
+<p>Loop de alto nivel:</p>
+<ol>
+<li>Recolectar datos de rollout con la policy actual.</li>
+<li>Estimar advantages/returns.</li>
+<li>Ejecutar varios minibatch gradient updates con clipping.</li>
+<li>Repetir hasta consumir el presupuesto de timesteps.</li>
+</ol>
+<h3 id="73-c%C3%B3mo-funciona-ppo-en-este-proyecto-mapeo-al-c%C3%B3digo">7.3 Cómo funciona PPO en este proyecto (mapeo al código)</h3>
+<p>Archivo principal: <code>demos/gymnasium_ppo_cartpole.py</code></p>
+<h3 id="731-configuraci%C3%B3n-de-training">7.3.1 Configuración de training</h3>
+<ul>
+<li><code>train_and_evaluate</code> crea <code>CartPole-v1</code> con wrapper <code>Monitor</code> y construye <code>PPO</code> (inicio de función + bloque del constructor).</li>
+<li>El script usa <code>MlpPolicy</code> y hyperparameters principales desde CLI: <code>learning_rate</code>, <code>n_steps</code>, <code>batch_size</code>, <code>gamma</code> y <code>seed</code>.</li>
+</ul>
+<p>Interpretación práctica:</p>
+<ul>
+<li>PPO es un algoritmo de policy optimization que mantiene updates estables al limitar cambios bruscos en la policy (esto lo implementa internamente Stable-Baselines3).</li>
+</ul>
+<h3 id="732-learn-save-y-evaluate">7.3.2 Learn, save y evaluate</h3>
+<ul>
+<li>El training se ejecuta con <code>model.learn(total_timesteps=args.timesteps)</code>.</li>
+<li>El guardado del modelo se hace con <code>model.save(args.model_path)</code> después de asegurar que exista el directorio padre.</li>
+<li>La evaluación determinista usa <code>evaluate_policy(..., deterministic=True)</code> y reporta mean/std reward.</li>
+</ul>
+<p>Esto da una métrica clara de “¿aprendió o no?” justo después del training.</p>
+<h3 id="733-verificaci%C3%B3n-visual-y-grabaci%C3%B3n">7.3.3 Verificación visual y grabación</h3>
+<ul>
+<li>Ruta de render humano: <code>render_policy(...)</code> con <code>render_mode=&quot;human&quot;</code>, acciones deterministas con <code>model.predict(..., deterministic=True)</code>.</li>
+<li>Ruta de grabación en video: <code>record_policy_video(...)</code> con <code>render_mode=&quot;rgb_array&quot;</code> y wrapper <code>RecordVideo</code> de Gymnasium.</li>
+<li>Ruta combinada: <code>--record-and-render</code> activa render y grabación en una sola ejecución.</li>
+</ul>
+<h3 id="734-par%C3%A1metros-cli-a-destacar-en-clase">7.3.4 Parámetros CLI a destacar en clase</h3>
+<ul>
+<li><code>--timesteps</code>: presupuesto total de training.</li>
+<li><code>--learning-rate</code>, <code>--n-steps</code>, <code>--batch-size</code>, <code>--gamma</code>: controles centrales de PPO.</li>
+<li><code>--eval-episodes</code>: confiabilidad de la estimación de evaluación.</li>
+<li><code>--render-eval</code>, <code>--record-video</code>, <code>--record-and-render</code>: modos de verificación de policy post-training.</li>
+</ul>
+
+</body>
+</html>
