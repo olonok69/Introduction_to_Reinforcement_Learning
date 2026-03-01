@@ -147,6 +147,15 @@ python demos/gymnasium_ppo_cartpole.py --record-and-render --render-episodes 3 -
 - Explicación detallada (EN): `docs/rl_explanations.md`
 - Explicación detallada (ES): `docs/rl_explanations.es.md`
 
+## Cobertura rápida de RL Guide
+
+La documentación del repositorio también se alinea con la teoría central de `RL Guide.pdf`:
+
+- Fundamentos de RL: agente, environment, estado, acción, reward, policy.
+- Model-free vs model-based RL (y por qué este repo se enfoca en demos model-free).
+- Contraste práctico entre policy optimization y Q-learning.
+- Distinción clara entre model, policy y value function.
+
 ## Notas
 
 - `requirements.txt` ahora incluye `gymnasium` explícitamente para estos scripts de demo.

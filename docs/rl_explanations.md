@@ -12,6 +12,40 @@ Note: line numbers are approximate and can shift as scripts evolve; function nam
 
 ---
 
+## 0) 60-minute teaching plan (approx.)
+
+Use this timing to keep the full explanation close to one hour:
+
+- **0-8 min**: RL fundamentals (agent, environment, state, action, reward, policy).
+- **8-15 min**: Model-based vs model-free RL (why these demos use model-free methods).
+- **15-30 min**: Q-learning (concept + FrozenLake code mapping).
+- **30-45 min**: REINFORCE (concept + CartPole code mapping).
+- **45-55 min**: PPO in practice (Stable-Baselines3 workflow + evaluation modes).
+- **55-60 min**: Wrap-up Q&A and quick comparison: model vs policy vs value function.
+
+## 0.1 RL foundations from the guide
+
+These demos assume the standard RL components highlighted in `RL Guide.pdf`:
+
+- **Agent**: the learner/decision-maker.
+- **Environment**: what the agent interacts with.
+- **State** $s$: current situation representation.
+- **Action** $a$: available decision.
+- **Reward** $r$: scalar feedback signal.
+- **Policy** $\pi$: mapping from states to actions.
+
+The optimization objective is to maximize expected cumulative discounted return over time.
+
+## 0.2 Model-based vs model-free (context)
+
+- **Model-based RL** uses or learns transition/reward dynamics to plan ahead.
+- **Model-free RL** learns from trial-and-error experience without an explicit environment model.
+
+This repository focuses on **model-free** demos for teaching and implementation simplicity:
+
+- Q-learning (value-based, off-policy, tabular in this repo).
+- REINFORCE and PPO (policy optimization methods).
+
 ## 1) Q-learning
 
 ### 1.1 What Q-learning is
@@ -356,4 +390,22 @@ This gives a clean “did it learn?” metric directly after training.
 - `--learning-rate`, `--n-steps`, `--batch-size`, `--gamma`: core PPO controls.
 - `--eval-episodes`: reliability of evaluation estimate.
 - `--render-eval`, `--record-video`, `--record-and-render`: post-training policy verification modes.
+
+---
+
+## 8) Model vs Policy vs Value Function (quick clarification)
+
+From the guide perspective, these three concepts answer different questions:
+
+- **Model**: “What will happen?”
+  - Predicts next states/rewards; used in model-based RL.
+- **Policy**: “What should I do now?”
+  - Chooses actions from states (deterministic or stochastic).
+- **Value Function**: “How good is this?”
+  - Estimates expected future return for a state $V(s)$ or state-action pair $Q(s,a)$.
+
+In these demos:
+
+- Q-learning mainly learns a **value function** (`Q-table`) and derives policy by argmax.
+- REINFORCE/PPO primarily optimize a **policy**, while PPO also uses value estimation internally.
 

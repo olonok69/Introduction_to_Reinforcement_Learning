@@ -142,6 +142,20 @@ python demos/gymnasium_ppo_cartpole.py --record-and-render --render-episodes 3 -
 2. Move to `reinforce_cartpole.py` (direct policy optimization).
 3. Finish with `gymnasium_ppo_cartpole.py` (modern practical algorithm and library usage).
 
+## Additional documentation
+
+- Detailed explanation (EN): `docs/rl_explanations.md`
+- Detailed explanation (ES): `docs/rl_explanations.es.md`
+
+## Quick RL Guide coverage
+
+The repository docs also map to the core theory in `RL Guide.pdf`:
+
+- RL fundamentals: agent, environment, state, action, reward, policy.
+- Model-free vs model-based RL (why this repo focuses on model-free demos).
+- Practical contrast between policy optimization and Q-learning.
+- Clear distinction between model, policy, and value function.
+
 ## Notes
 
 - `requirements.txt` now explicitly includes `gymnasium` for the demo scripts.

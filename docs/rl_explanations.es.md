@@ -12,6 +12,40 @@ Nota: los números de línea son aproximados y pueden cambiar cuando evolucionan
 
 ---
 
+## 0) Plan de clase de 60 minutos (aprox.)
+
+Usa esta distribución para mantener toda la explicación cerca de una hora:
+
+- **0-8 min**: Fundamentos de RL (agente, environment, estado, acción, reward, policy).
+- **8-15 min**: Model-based vs model-free RL (por qué estos demos usan métodos model-free).
+- **15-30 min**: Q-learning (concepto + mapeo al código de FrozenLake).
+- **30-45 min**: REINFORCE (concepto + mapeo al código de CartPole).
+- **45-55 min**: PPO en práctica (flujo con Stable-Baselines3 + modos de evaluación).
+- **55-60 min**: Cierre y preguntas, con comparación rápida: model vs policy vs value function.
+
+## 0.1 Fundamentos de RL desde la guía
+
+Estos demos asumen los componentes estándar de RL destacados en `RL Guide.pdf`:
+
+- **Agent**: el aprendiz/tomador de decisiones.
+- **Environment**: con lo que interactúa el agente.
+- **State** $s$: representación de la situación actual.
+- **Action** $a$: decisión disponible.
+- **Reward** $r$: señal escalar de feedback.
+- **Policy** $\pi$: mapeo de estados a acciones.
+
+El objetivo es maximizar el retorno acumulado esperado con descuento a lo largo del tiempo.
+
+## 0.2 Model-based vs model-free (contexto)
+
+- **Model-based RL** usa o aprende la dinámica de transición/recompensa para planear.
+- **Model-free RL** aprende por prueba y error sin un modelo explícito del environment.
+
+Este repositorio se enfoca en demos **model-free** por simplicidad didáctica y de implementación:
+
+- Q-learning (value-based, off-policy, tabular en este repo).
+- REINFORCE y PPO (métodos de policy optimization).
+
 ## 1) Q-learning
 
 ### 1.1 Qué es Q-learning
@@ -356,4 +390,22 @@ Esto da una métrica clara de “¿aprendió o no?” justo después del trainin
 - `--learning-rate`, `--n-steps`, `--batch-size`, `--gamma`: controles centrales de PPO.
 - `--eval-episodes`: confiabilidad de la estimación de evaluación.
 - `--render-eval`, `--record-video`, `--record-and-render`: modos de verificación de policy post-training.
+
+---
+
+## 8) Model vs Policy vs Value Function (aclaración rápida)
+
+Desde la guía, estos tres conceptos responden preguntas distintas:
+
+- **Model**: “¿Qué va a pasar?”
+  - Predice siguiente estado/reward; se usa en model-based RL.
+- **Policy**: “¿Qué debo hacer ahora?”
+  - Elige acciones a partir del estado (determinística o estocástica).
+- **Value Function**: “¿Qué tan bueno es esto?”
+  - Estima el retorno esperado futuro de un estado $V(s)$ o de un par estado-acción $Q(s,a)$.
+
+En estos demos:
+
+- Q-learning aprende principalmente una **value function** (`Q-table`) y deriva la policy con argmax.
+- REINFORCE/PPO optimizan principalmente una **policy**, y PPO además usa estimación de valor internamente.
 
