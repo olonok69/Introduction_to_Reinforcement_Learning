@@ -8,6 +8,12 @@ This repository contains three Python demos aligned with your RL guide:
 
 The diagram `rl_algorithms_9_15.svg` can be used as a visual companion while running the scripts.
 
+## RL Algorithms Diagram
+
+- Open SVG: [rl_algorithms_9_15.svg](rl_algorithms_9_15.svg)
+
+![RL Algorithms Diagram](rl_algorithms_9_15.svg)
+
 ## Prerequisites
 
 - Python 3.10 or 3.11
