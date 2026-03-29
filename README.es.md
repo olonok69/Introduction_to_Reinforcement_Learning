@@ -26,6 +26,8 @@ El objetivo es conectar teoría y código: leer conceptos, entrenar agentes, eva
 - Objetivo: maximizar el retorno descontado esperado
 - RL model-based vs model-free, y por qué aquí se usan métodos model-free
 
+!["Reinforcement Learning Taxonomy"](rl_algorithms_9_15.svg).
+
 ### Resumen de Q-learning
 
 Q-learning aprende valores de acción $Q(s,a)$ y deriva una política con `argmax`.

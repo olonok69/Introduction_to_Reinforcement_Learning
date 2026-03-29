@@ -25,6 +25,7 @@ It is designed to connect theory and implementation: you can read concepts, run 
 - Agent, environment, state, action, reward, policy
 - Objective: maximize expected discounted return
 - Model-based vs model-free RL, and why this repo focuses on model-free methods
+!["Reinforcement Learning Taxonomy"](rl_algorithms_9_15.svg).
 
 ### Q-learning summary
 
